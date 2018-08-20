@@ -1,0 +1,66 @@
+.add-image {
+    cursor: pointer;
+    border: 2px dashed #769daa;
+    border-radius: 10px;
+    position: inherit !important;
+    left: auto !important;
+    right: auto !important;
+    padding-right: 0 !important;
+    margin-top: 0 !important;
+    color: #769daa;
+    font-size: 8em;
+    -moz-transform: none;
+    -ms-transform: none;
+    -webkit-transform: none;
+    -o-transform: none;
+    transform: none;
+    width: 100%;
+    height: 150px;
+    line-height: 120px;
+    text-align: center; }
+
+
+.imageContainer .galleryImage {
+    border-radius: 10px;
+    text-align: right;
+    padding-left: 0 !important;
+    cursor: pointer;
+    border: 2px solid transparent;
+    overflow: hidden; }
+
+.hotelImgSelected {
+    border: 2px dashed #284f56 !important; }
+
+.galleryImageBody {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center; }
+
+.galleryImageBody img {
+    height: 150px;
+    width: auto; }
+
+.galleryImageDelete {
+    position: absolute;
+    display: inline-block;
+    padding-right: 10px;
+    margin-top: 5px;
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+    color: red;
+    font-size: 2em;
+    margin-right: 5px;
+    z-index: 2; }
+
+
+
+.tipTxt {
+    font-size: small;
+}
+
+
+
