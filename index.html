@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/jquery.datetimepicker.css">
   <link rel="stylesheet" href="css/common.css">
 
-  <link rel="stylesheet" href="./node_modules/shepherd.js/dist/css/shepherd-theme-arrows.css">
+  <link rel="stylesheet" href="./node_modules/shepherd.js/dist/css/shepherd-theme-arrows-plain-buttons.css">
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
@@ -455,11 +455,25 @@
   <script>
     const tour = new Shepherd.Tour({
       defaults: {
-        classes: 'shepherd-theme-arrows'
+        classes: 'shepherd-theme-arrows-plain-buttons',
+
       }
     });
     tour.addStep('example-step', {
-      text: 'Заполните это поле чтобы что-то',
+      text: ' Создать первое предложение с помощью подсказок?',
+      buttons: [
+        {
+          text: 'Да, начать заполнение',
+          action: tour.next
+        },
+        {
+          text: 'Спасибо, не надо',
+          action: tour.cancel
+        }
+      ]
+    });
+    tour.addStep('example-step', {
+      text: 'Начните заполнение предложения с Заголовка',
       attachTo: '#inpHeader bottom',
       buttons: [
         {
@@ -470,7 +484,7 @@
     });
     tour.addStep('example-step2', {
       text: 'Это поле откуда вас нужно забрать',
-      attachTo: '#inpPlaceIn right',
+      attachTo: '#inpPlaceIn bottom',
       buttons: [
         {
           text: 'Далее',
@@ -480,7 +494,7 @@
     });
     tour.addStep('example-step3', {
       text: 'Это поле куда вы хотите уехать',
-      attachTo: '#inpPlaceOut left',
+      attachTo: '#inpPlaceOut bottom',
       buttons: [
         {
           text: 'Конец',
