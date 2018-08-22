@@ -453,14 +453,20 @@
   <script src="./node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
 
   <script>
-    const tour = new Shepherd.Tour({
+    var tour = new Shepherd.Tour({
       defaults: {
         classes: 'shepherd-theme-arrows-plain-buttons',
-
       }
     });
+
+    console.log(tour);
+
+    var count = 3;
+
     tour.addStep('example-step', {
-      text: ' Создать первое предложение с помощью подсказок?',
+      title: 'Главный заголовок',
+      showCancelLink: true,
+      text: ' <strong>Создать первое предложение с помощью подсказок?</strong><span style="display:block">Это займет несколько минут</span>',
       buttons: [
         {
           text: 'Да, начать заполнение',
@@ -473,27 +479,41 @@
       ]
     });
     tour.addStep('example-step', {
-      text: 'Начните заполнение предложения с Заголовка',
+      title: 'Заголовок',
+      showCancelLink: true,
+      text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
       attachTo: '#inpHeader bottom',
       buttons: [
         {
           text: 'Далее',
           action: tour.next
+        },
+        {
+          text: 'Дальше все понятно',
+          action: tour.cancel
         }
       ]
     });
     tour.addStep('example-step2', {
-      text: 'Это поле откуда вас нужно забрать',
+      title: 'Откуда',
+      showCancelLink: true,
+      text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
       attachTo: '#inpPlaceIn bottom',
       buttons: [
         {
           text: 'Далее',
           action: tour.next
+        },
+        {
+          text: 'Дальше все понятно',
+          action: tour.cancel
         }
       ]
     });
     tour.addStep('example-step3', {
-      text: 'Это поле куда вы хотите уехать',
+      title: 'Куда',
+      showCancelLink: true,
+      text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
       attachTo: '#inpPlaceOut bottom',
       buttons: [
         {
@@ -503,6 +523,10 @@
       ]
     });
     tour.start()
+
+
+
+
 
   </script>
 </body>
