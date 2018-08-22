@@ -455,11 +455,9 @@
   <script>
     var tour = new Shepherd.Tour({
       defaults: {
-        classes: 'shepherd-theme-arrows-plain-buttons',
+        classes: 'shepherd-theme-arrows-plain-buttons'
       }
-    });
-
-    console.log(tour);
+    })
 
     var count = 3;
 
@@ -483,15 +481,29 @@
       showCancelLink: true,
       text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
       attachTo: '#inpHeader bottom',
+      when: {
+        show: function () {
+          $('#inpHeader').focus()
+        }
+      },
       buttons: [
         {
           text: 'Далее',
-          action: tour.next
+          // action: tour.next,
+          events: {
+            click: function () {
+              if ($('#inpHeader').val()) {
+                return Shepherd.activeTour.show('example-step2');
+              } else {
+                $('#inpHeader').focus()
+              }
+            }
+          }
         },
         {
           text: 'Дальше все понятно',
           action: tour.cancel
-        }
+        },
       ]
     });
     tour.addStep('example-step2', {
