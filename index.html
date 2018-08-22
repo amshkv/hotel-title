@@ -19,6 +19,13 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
+  <style>
+    .tour-error {
+      border-bottom-color: #ea5b0c !important;
+      box-shadow: 0 2px 0 0 #ea5b0c !important;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -477,9 +484,9 @@
       ]
     });
     tour.addStep('example-step', {
-      title: 'Заголовок',
+      title: 'Первый главный шаг',
       showCancelLink: true,
-      text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
+      text: '<span class="main-text">Заполните в этом поле и мы продолжим</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
       attachTo: '#inpHeader bottom',
       when: {
         show: function () {
@@ -493,9 +500,10 @@
           events: {
             click: function () {
               if ($('#inpHeader').val()) {
+                $('#inpHeader').removeClass('tour-error');
                 return Shepherd.activeTour.show('example-step2');
               } else {
-                $('#inpHeader').focus()
+                $('#inpHeader').focus().addClass('tour-error')
               }
             }
           }
