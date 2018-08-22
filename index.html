@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/jquery.datetimepicker.css">
   <link rel="stylesheet" href="css/common.css">
 
-  <link rel="stylesheet" href="./node_modules/shepherd.js/dist/css/shepherd-theme-arrows-plain-buttons.css">
+  <link rel="stylesheet" href="./css/hint.css">
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
@@ -23,6 +23,11 @@
     .tour-error {
       border-bottom-color: #ea5b0c !important;
       box-shadow: 0 2px 0 0 #ea5b0c !important;
+    }
+
+    .tour-disable {
+      opacity: .5;
+      cursor: no-drop !important;
     }
   </style>
 
@@ -468,53 +473,96 @@
 
     var count = 3;
 
+    console.log(tour);
+
+
     tour.addStep('example-step', {
-      title: 'Главный заголовок',
-      showCancelLink: true,
-      text: ' <strong>Создать первое предложение с помощью подсказок?</strong><span style="display:block">Это займет несколько минут</span>',
+      title: 'Быстро и удобно',
+      showCancelLink: false,
+      classes: 'hint__first',
+      text: '<span class="hint__text">Воспользуйтесь подсказками, чтобы быстро заполнить ваше первое предложение. Это займет не больше двух минут и ознакомит Вас со всеми возможностями при составлении заявки?</span>',
       buttons: [
         {
-          text: 'Да, начать заполнение',
-          action: tour.next
+          text: 'Разберусь сам',
+          action: tour.cancel,
+          classes: 'hint__not-acc-button'
         },
         {
-          text: 'Спасибо, не надо',
-          action: tour.cancel
+          text: 'Отлично, вперед!',
+          action: tour.next,
+          classes: 'hint__acc-button'
         }
       ]
     });
     tour.addStep('example-step', {
-      title: 'Первый главный шаг',
+      title: 'Ввод заголовка ',
+      classes: 'hint__counts hint__center',
       showCancelLink: true,
-      text: '<span class="main-text">Заполните в этом поле и мы продолжим</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
+      text: '<span class="hint__text">Здесь необходимо ввести название для вашего предложения. Оно должно быть лаконичным и отражать суть вашего запроса</span><span class="hint__step">' + tour.steps.length + '/' + count + '</span>',
       attachTo: '#inpHeader bottom',
       when: {
         show: function () {
-          $('#inpHeader').focus()
+          $(tour.currentStep.target).focus();
         }
       },
       buttons: [
         {
+          text: 'Пропустить',
+          action: tour.cancel,
+          classes: 'hint__not-acc-button'
+        }, {
           text: 'Далее',
+          // classes: 'tour-disable',
           // action: tour.next,
+          classes: 'hint__acc-button',
           events: {
             click: function () {
               if ($('#inpHeader').val()) {
-                $('#inpHeader').removeClass('tour-error');
-                return Shepherd.activeTour.show('example-step2');
+                $(tour.currentStep.target).removeClass('tour-error');
+                return tour.next();
               } else {
-                $('#inpHeader').focus().addClass('tour-error')
+                $(tour.currentStep.target).focus().addClass('tour-error')
               }
             }
           }
         },
+      ],
+      // beforeShowPromise: function () {
+      //   return new Promise(function (resolve) {
+
+      //     $('#inpHeader').keyup(function () {
+
+
+
+      //       console.log($(this));
+
+      //       if ($(this).val() != '') {
+      //         $(this).removeClass('tour-error');
+      //         resolve();
+      //       }
+      //     });
+
+      //   })
+      // },
+    })
+    tour.addStep('example-step2', {
+      title: 'Заголовок',
+      showCancelLink: true,
+      advanceOn: { selector: '.header__tab.active', event: 'click' },
+      text: '<span class="main-text">Заполните в этом поле и мы продолжим</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
+      attachTo: '#inpHeader bottom',
+      buttons: [
+        {
+          text: 'Далее',
+          action: tour.next
+        },
         {
           text: 'Дальше все понятно',
           action: tour.cancel
-        },
+        }
       ]
     });
-    tour.addStep('example-step2', {
+    tour.addStep('example-step3', {
       title: 'Откуда',
       showCancelLink: true,
       text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
@@ -530,7 +578,7 @@
         }
       ]
     });
-    tour.addStep('example-step3', {
+    tour.addStep('example-step4', {
       title: 'Куда',
       showCancelLink: true,
       text: '<span class="main-text">Мейн текст</span><span class="count" style="display:block">' + tour.steps.length + ' из ' + count + '</span>',
@@ -546,6 +594,14 @@
 
 
 
+    // $('html').on('keyup', '.tour-error', function (e) {
+    //   console.log($(this));
+
+    //   if ($(this).val() != '') {
+    //     $(this).removeClass('tour-error');
+    //     Shepherd.activeTour.next();
+    //   }
+    // });
 
 
   </script>
